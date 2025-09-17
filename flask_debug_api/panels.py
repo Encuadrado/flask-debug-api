@@ -1,8 +1,45 @@
 import jinja2
+import re
 
-from flask import current_app, url_for, Markup
+from flask import current_app, url_for
+
+try:
+    from flask import Markup
+except ImportError:
+    from markupsafe import Markup
 from flask_debugtoolbar.panels import DebugPanel
-from werkzeug.routing import parse_rule
+
+# Compatibility shim for parse_rule which was removed from Werkzeug
+def parse_rule(rule_string):
+    '''
+    Replace the removed parse_rule function from werkzeug.routing
+    Returns tuples of (converter, arguments, variable)
+    '''
+    parts = []
+    # Pattern to match URL variables like <id> or <int:post_id>
+    pattern = r'<(?:([^>:]+):)?([^>]+)>'
+    
+    pos = 0
+    for match in re.finditer(pattern, rule_string):
+        # Add static part before the variable
+        if match.start() > pos:
+            static_text = rule_string[pos:match.start()]
+            if static_text:
+                parts.append((None, None, static_text))
+        
+        # Add variable part
+        converter = match.group(1)  # converter type (e.g., 'int'), might be None
+        variable = match.group(2)   # variable name
+        parts.append((converter, None, variable))
+        pos = match.end()
+    
+    # Add remaining static part after last variable
+    if pos < len(rule_string):
+        static_text = rule_string[pos:]
+        if static_text:
+            parts.append((None, None, static_text))
+    
+    return parts
 
 template_loader = jinja2.PrefixLoader({
     'debug-api': jinja2.PackageLoader(__name__, 'templates/debug-api')
