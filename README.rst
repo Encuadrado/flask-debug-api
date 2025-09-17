@@ -10,11 +10,18 @@ Injects a form to POST, PUT, PATCH or DELETE to API endpoints and allows debuggi
 Installation
 ------------
 
-Install with pip
+Compatible with Flask 2.2+ and Flask 3.x. Install with pip:
 
 .. code-block:: sh
 
     $ pip install Flask-Debug-API
+
+
+Requirements
+~~~~~~~~~~~~
+
+- Flask >= 2.2.0
+- Flask-DebugToolbar
 
 
 Usage
