@@ -1,7 +1,7 @@
 Flask Debug API
 ===============
 
-Flask-Debug-API is an API Browser for Flask-DebugToolbar.
+Flask-Debug-API is an API Browser for Flask-DebugToolbar. Compatible with Flask 2.2+ and Flask 3.x.
 
 Injects a form to POST, PUT, PATCH or DELETE to API endpoints and allows debugging SQLAlchemy queries, Werkzeug stack traces, and everything else that Flask-DebugToolbar supports.
 
@@ -10,11 +10,18 @@ Injects a form to POST, PUT, PATCH or DELETE to API endpoints and allows debuggi
 Installation
 ------------
 
-Install with pip
+Compatible with Flask 2.2+ and Flask 3.x. Install with pip:
 
 .. code-block:: sh
 
     $ pip install Flask-Debug-API
+
+
+Requirements
+~~~~~~~~~~~~
+
+- Flask >= 2.2.0
+- Flask-DebugToolbar
 
 
 Usage
