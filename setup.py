@@ -6,8 +6,8 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as README:
 
 setup(
     name='Flask-Debug-API',
-    version='0.1.0',
-    url='http://github.com/kevinbeaty/flask-debug-api',
+    version='0.1.1',
+    url='http://github.com/Encuadrado/flask-debug-api',
     license='MIT',
     author='Kevin Beaty',
     author_email='kevin@simplectic.com',
