@@ -2,11 +2,7 @@ import jinja2
 import re
 
 from flask import current_app, url_for
-
-try:
-    from flask import Markup
-except ImportError:
-    from markupsafe import Markup
+from markupsafe import Markup
 from flask_debugtoolbar.panels import DebugPanel
 
 # Compatibility shim for parse_rule which was removed from Werkzeug

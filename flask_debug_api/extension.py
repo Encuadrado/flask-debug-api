@@ -3,11 +3,7 @@ import json
 from flask import (
     Blueprint, current_app, render_template, url_for, g,
     request, after_this_request, make_response, redirect)
-
-try:
-    from flask import Markup
-except ImportError:
-    from markupsafe import Markup
+from markupsafe import Markup
 
 try:
     from pygments import highlight
@@ -44,13 +40,7 @@ def route(api_endpoint):
 @module.route('/browse/<path:path>', methods=METHODS)
 def browse(path):
     # Flask 3.x compatible way to get URL adapter
-    try:
-        # Modern Flask (2.2+) approach
-        adapter = current_app.url_map.bind_to_environ(request.environ)
-    except AttributeError:
-        # Fallback for very old Flask versions (should not be needed with our min version)
-        adapter = current_app.url_map.bind(request.environ.get('SERVER_NAME', 'localhost'))
-    
+    adapter = current_app.url_map.bind_to_environ(request.environ)
     g.methods = [method for method in METHODS if adapter.test(path, method)]
     if adapter.test(path, request.method):
         after_this_request(modify_response)
